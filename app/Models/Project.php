@@ -25,6 +25,15 @@ class Project extends Model
         'is_featured' => 'boolean',
     ];
 
+    protected static function booted(): void
+    {
+        static::saving(function (Project $project) {
+            if (empty($project->slug) && ! empty($project->title)) {
+                $project->slug = \Illuminate\Support\Str::slug($project->title);
+            }
+        });
+    }
+
     /**
      * Get the route key for the model.
      */

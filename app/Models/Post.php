@@ -26,6 +26,15 @@ class Post extends Model
         'published_at' => 'datetime',
     ];
 
+    protected static function booted(): void
+    {
+        static::saving(function (Post $post) {
+            if (empty($post->slug) && ! empty($post->title)) {
+                $post->slug = \Illuminate\Support\Str::slug($post->title);
+            }
+        });
+    }
+
     protected $appends = [
         'image_url',
     ];

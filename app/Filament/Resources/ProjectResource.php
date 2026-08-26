@@ -36,10 +36,12 @@ class ProjectResource extends Resource
             ->components([
                 Components\Section::make([
                     Forms\Components\TextInput::make('title')
+                        ->label('Judul Project')
                         ->required()
                         ->live(onBlur: true)
                         ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
                     Forms\Components\TextInput::make('slug')
+                        ->label('Slug URL')
                         ->required()
                         ->unique(ignoreRecord: true),
                     Forms\Components\TextInput::make('category')

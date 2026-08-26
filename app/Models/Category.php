@@ -16,6 +16,15 @@ class Category extends Model
         'description',
     ];
 
+    protected static function booted(): void
+    {
+        static::saving(function (Category $category) {
+            if (empty($category->slug) && ! empty($category->name)) {
+                $category->slug = \Illuminate\Support\Str::slug($category->name);
+            }
+        });
+    }
+
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);

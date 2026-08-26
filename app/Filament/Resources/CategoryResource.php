@@ -37,7 +37,7 @@ class CategoryResource extends Resource
                         ->label('Nama Kategori')
                         ->required()
                         ->live(onBlur: true)
-                        ->afterStateUpdated(fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
+                        ->afterStateUpdated(fn (Forms\Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
                     Forms\Components\TextInput::make('slug')
                         ->label('Slug URL')
                         ->required()
