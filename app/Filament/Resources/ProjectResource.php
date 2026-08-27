@@ -7,7 +7,6 @@ use App\Models\Project;
 use BackedEnum;
 use Filament\Actions;
 use Filament\Forms;
-use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components;
 use Filament\Schemas\Schema;
@@ -39,7 +38,7 @@ class ProjectResource extends Resource
                         ->label('Judul Project')
                         ->required()
                         ->live(onBlur: true)
-                        ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
+                        ->afterStateUpdated(fn ($set, ?string $state) => $set('slug', Str::slug($state ?? ''))),
                     Forms\Components\TextInput::make('slug')
                         ->label('Slug URL')
                         ->required()

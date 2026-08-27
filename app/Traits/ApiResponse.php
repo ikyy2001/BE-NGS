@@ -11,6 +11,10 @@ trait ApiResponse
      */
     protected function successResponse(mixed $data, string $message = 'Data retrieved successfully', int $code = 200): JsonResponse
     {
+        if ($data instanceof \Illuminate\Http\Resources\Json\JsonResource) {
+            $data = $data->resolve();
+        }
+
         return response()->json([
             'success' => true,
             'message' => $message,
