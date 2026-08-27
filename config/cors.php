@@ -1,6 +1,6 @@
 <?php
 
-$frontendUrl = env('FRONTEND_URL', 'http://localhost:4321');
+$frontendUrl = env('FRONTEND_URL', '*');
 $allowedOrigins = array_filter(array_map('trim', explode(',', $frontendUrl)));
 
 return [
@@ -15,13 +15,18 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie', 'storage/*'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ! empty($allowedOrigins) ? array_values($allowedOrigins) : ['http://localhost:4321'],
+    'allowed_origins' => ! empty($allowedOrigins) ? array_values($allowedOrigins) : ['*'],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => [
+        '#^https?://(.*\.)?nusagarudastudio\.com$#',
+        '#^https?://(.*\.)?nusagarudastudio\.my\.id$#',
+        '#^http://localhost:\d+$#',
+        '#^http://127\.0\.0\.1:\d+$#',
+    ],
 
     'allowed_headers' => ['*'],
 
@@ -29,6 +34,8 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true,
+    'supports_credentials' => false,
 
 ];
+
+
