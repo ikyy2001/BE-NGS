@@ -34,6 +34,9 @@ class DatabaseSeeder extends Seeder
             PostSeeder::class,
             AccordionShowcaseSeeder::class,
             PopupBannerSeeder::class,
+            CompanySettingSeeder::class,
+            JobVacancySeeder::class,
+            PricingPlanSeeder::class,
         ]);
     }
 }
