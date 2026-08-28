@@ -27,6 +27,13 @@ class PostController extends Controller
             });
         }
 
+        if ($search = $request->input('search', $request->input('q'))) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('body', 'like', "%{$search}%");
+            });
+        }
+
         $posts = $query->paginate($perPage);
 
         return response()->json([

@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             PostSeeder::class,
             AccordionShowcaseSeeder::class,
+            PopupBannerSeeder::class,
         ]);
     }
 }
