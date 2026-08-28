@@ -63,13 +63,6 @@ class JobApplicationResource extends Resource
                             ->url()
                             ->columnSpanFull()
                             ->disabled(),
-                        Forms\Components\FileUpload::make('resume_path')
-                            ->label('Berkas CV / Resume')
-                            ->disk('public')
-                            ->downloadable()
-                            ->openable()
-                            ->columnSpanFull()
-                            ->disabled(),
                         Forms\Components\Textarea::make('cover_letter')
                             ->label('Surat Lamaran / Pengantar')
                             ->rows(4)
