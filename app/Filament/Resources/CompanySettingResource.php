@@ -60,6 +60,8 @@ class CompanySettingResource extends Resource
                             ->placeholder('Depok - Bogor, Indonesia'),
                         Forms\Components\TextInput::make('google_maps_url')
                             ->label('Link Google Maps (Opsional)')
+                            ->helperText('Tautan Google Maps / embed map lokasi studio untuk widget peta & tombol lokasi di footer frontend')
+                            ->placeholder('https://maps.google.com/?q=Depok+Indonesia')
                             ->url()
                             ->columnSpanFull(),
                     ])->columns(2),
