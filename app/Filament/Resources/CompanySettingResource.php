@@ -56,13 +56,27 @@ class CompanySettingResource extends Resource
                             ->email()
                             ->placeholder('info@nusagarudastudio.my.id'),
                         Forms\Components\TextInput::make('address')
-                            ->label('Alamat Kantor')
-                            ->placeholder('Depok - Bogor, Indonesia'),
+                            ->label('Alamat Kantor (Teks)')
+                            ->placeholder('Depok - Bogor, Indonesia')
+                            ->columnSpanFull(),
+                        Forms\Components\TextInput::make('latitude')
+                            ->label('Latitude (Garis Lintang)')
+                            ->placeholder('-6.402484')
+                            ->helperText('Contoh: -6.402484 (Dapatkan dari klik kanan titik lokasi di Google Maps -> Salin koordinat)'),
+                        Forms\Components\TextInput::make('longitude')
+                            ->label('Longitude (Garis Bujur)')
+                            ->placeholder('106.794243')
+                            ->helperText('Contoh: 106.794243 (Memastikan pin peta akurat 100% pada lokasi studio)'),
                         Forms\Components\TextInput::make('google_maps_url')
-                            ->label('Link Google Maps (Opsional)')
-                            ->helperText('Tautan Google Maps / embed map lokasi studio untuk widget peta & tombol lokasi di footer frontend')
-                            ->placeholder('https://maps.google.com/?q=Depok+Indonesia')
+                            ->label('Link Google Maps Langsung (Opsional)')
+                            ->helperText('Tautan langsung untuk membuka halaman Google Maps (contoh: https://maps.app.goo.gl/... atau https://maps.google.com/...)')
+                            ->placeholder('https://maps.google.com/?q=-6.402484,106.794243')
                             ->url()
+                            ->columnSpanFull(),
+                        Forms\Components\TextInput::make('google_maps_embed_url')
+                            ->label('Custom Embed Map URL (Opsional)')
+                            ->helperText('Hanya diisi jika ingin menggunakan custom iframe embed URL (https://www.google.com/maps/embed?pb=...)')
+                            ->placeholder('https://www.google.com/maps/embed?...')
                             ->columnSpanFull(),
                     ])->columns(2),
 
