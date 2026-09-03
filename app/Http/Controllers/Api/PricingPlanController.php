@@ -18,8 +18,13 @@ class PricingPlanController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $plans = PricingPlan::query()
-            ->where('is_active', true)
+        $query = PricingPlan::query()->where('is_active', true);
+
+        if ($request->has('category') && filled($request->query('category'))) {
+            $query->where('category', $request->query('category'));
+        }
+
+        $plans = $query
             ->orderBy('sort_order', 'asc')
             ->orderBy('id', 'asc')
             ->get();

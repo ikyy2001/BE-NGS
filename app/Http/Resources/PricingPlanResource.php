@@ -21,6 +21,7 @@ class PricingPlanResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'category' => $this->category ?? 'general',
             'subtitle' => $this->subtitle,
             'price' => $this->price,
             'billing_period' => $this->billing_period,

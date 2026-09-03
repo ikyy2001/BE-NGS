@@ -69,10 +69,62 @@ class FaqSeeder extends Seeder
                 'sort_order' => 8,
                 'is_active' => true,
             ],
+            [
+                'category' => 'roblox',
+                'title' => 'Berapa estimasi biaya jasa pembuatan game Roblox di Nusa Garuda Studio?',
+                'description' => 'Biaya jasa pembuatan game Roblox disesuaikan dengan skala dan kompleksitas game. Untuk prototype, mini game, atau obby custom mulai dari Rp 1.500.000. Untuk game bertipe Simulator, PvP Arena, atau Tycoon berkisar antara Rp 4.000.000 - Rp 15.000.000. Sedangkan game skala besar seperti Open-World Roleplay (RP) custom map Indonesia dengan backend database kompleks dimulai dari Rp 15.000.000+. Kami juga menerima pengerjaan per modul script / sistem mekanik spesifik.',
+                'sort_order' => 9,
+                'is_active' => true,
+            ],
+            [
+                'category' => 'roblox',
+                'title' => 'Berapa lama proses pembuatan game Roblox dari awal hingga selesai?',
+                'description' => 'Waktu pengerjaan bergantung pada cakupan Game Design Document (GDD). Mini game atau obby biasanya membutuhkan 1 - 2 minggu. Game mekanik menengah (Simulator, Arena PvP, Tycoon) sekitar 3 - 6 minggu. Sedangkan game kompleks seperti MMORPG atau Roleplay multi-sistem membutuhkan 6 - 12 minggu dengan sprint mingguan dan demo build berkala.',
+                'sort_order' => 10,
+                'is_active' => true,
+            ],
+            [
+                'category' => 'roblox',
+                'title' => 'Apakah saya mendapatkan full source code, file .rbxl, dan aset kepemilikan?',
+                'description' => 'Ya, 100%! Setelah serah terima proyek selesai, Anda menerima file place Roblox (.rbxl / .rbxlx), repositori Git/Rojo (jika menggunakan workflow Rojo), 3D model .blend / .fbx, UI spritesheet, serta dokumentasi teknis lengkap. Anda memiliki hak kepemilikan komersial penuh atas game tersebut.',
+                'sort_order' => 11,
+                'is_active' => true,
+            ],
+            [
+                'category' => 'roblox',
+                'title' => 'Bagaimana Nusa Garuda Studio mengamankan game Roblox dari Exploit & Cheater?',
+                'description' => 'Kami menerapkan arsitektur Authoritative Server (Server-Side Validation). Logika kritis seperti pengurangan uang, pembelian item, health, damage, teleport, dan inventaris selalu divalidasi ketat di sisi Server. RemoteEvents dan RemoteFunctions dilengkapi enkripsi data, rate limiting (anti-spam), sanity check, serta sistem Anti-Noclip dan Anti-Speedhack bawaan.',
+                'sort_order' => 12,
+                'is_active' => true,
+            ],
+            [
+                'category' => 'roblox',
+                'title' => 'Apakah Nusa Garuda Studio bisa membuat game Roleplay Indonesia (Map Indonesia)?',
+                'description' => 'Bisa dan ini adalah salah satu keunggulan utama kami! Kami berpengalaman merancang game bertema Indonesia, seperti map kota/desa khas Indonesia, kendaraan custom (motor, mobil polisi, bus), sistem pekerjaan (kurir, polisi, mekanik), sistem ekonomi rupiah/uang virtual, hingga sistem voice chat interaktif.',
+                'sort_order' => 13,
+                'is_active' => true,
+            ],
+            [
+                'category' => 'roblox',
+                'title' => 'Bagaimana sistem monetisasi game agar bisa menghasilkan Robux dan DevEx?',
+                'description' => 'Kami membantu merancang Game Economy Loop yang sehat: konfigurasi Gamepass (VIP, Game Boosters, Cosmetic items), Developer Products (beli koin instan, gacha/crates yang compliant dengan Roblox TOS), Daily Rewards, dan Battle Pass / Season Pass. Monetisasi ini dioptimalkan agar pemain betah bermain lama (retensi tinggi) dan terdorong membeli Robux.',
+                'sort_order' => 14,
+                'is_active' => true,
+            ],
+            [
+                'category' => 'roblox',
+                'title' => 'Apakah game yang dibuat dioptimasi untuk pemain HP / Mobile Android & iOS?',
+                'description' => 'Tentu saja. Lebih dari 70% pemain Roblox bermain di perangkat Mobile. Semua game yang kami bangun menerapkan UI responsif touchscreen, optimasi part (StreamingEnabled, LOD mesh, minimal texture overload), dan penyesuaian control touch virtual joystick agar berjalan stabil di 60 FPS tanpa lag atau overheating.',
+                'sort_order' => 15,
+                'is_active' => true,
+            ],
         ];
 
         foreach ($faqs as $faq) {
-            Faq::create($faq);
+            Faq::updateOrCreate(
+                ['title' => $faq['title']],
+                $faq
+            );
         }
     }
 }

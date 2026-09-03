@@ -41,6 +41,15 @@ class PricingPlanResource extends Resource
                             ->label('Nama Paket Layanan')
                             ->placeholder('Contoh: Website & Platform Development')
                             ->required(),
+                        Forms\Components\Select::make('category')
+                            ->label('Kategori Layanan')
+                            ->options([
+                                'general' => 'Umum / Website & Platform',
+                                'roblox' => 'Roblox Game Development',
+                                'design' => 'UI/UX Design',
+                            ])
+                            ->default('general')
+                            ->required(),
                         Forms\Components\TextInput::make('price')
                             ->label('Harga / Format Harga')
                             ->placeholder('Contoh: Starting at IDR 300K')
@@ -104,6 +113,15 @@ class PricingPlanResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->weight('bold'),
+                Columns\TextColumn::make('category')
+                    ->label('Kategori')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'roblox' => 'warning',
+                        'design' => 'info',
+                        default => 'primary',
+                    })
+                    ->sortable(),
                 Columns\TextColumn::make('price')
                     ->label('Harga')
                     ->sortable(),
@@ -123,6 +141,17 @@ class PricingPlanResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->filters([
+                Filters\SelectFilter::make('category')
+                    ->label('Filter Kategori')
+                    ->options([
+                        'general' => 'Umum / Website & Platform',
+                        'roblox' => 'Roblox Game Development',
+                        'design' => 'UI/UX Design',
+                    ]),
+                Filters\TernaryFilter::make('is_active')
+                    ->label('Status Aktif'),
             ])
             ->actions([
                 Actions\EditAction::make(),

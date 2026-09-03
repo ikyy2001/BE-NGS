@@ -39,6 +39,7 @@ class FaqResource extends Resource
                             'commercial' => 'Commercial',
                             'maintenance' => 'Maintenance',
                             'technology' => 'Technology',
+                            'roblox' => 'Roblox Game Development',
                         ])
                         ->required(),
                     Forms\Components\TextInput::make('sort_order')
@@ -91,6 +92,7 @@ class FaqResource extends Resource
                         'commercial' => 'Commercial',
                         'maintenance' => 'Maintenance',
                         'technology' => 'Technology',
+                        'roblox' => 'Roblox Game Development',
                     ]),
                 Filters\TernaryFilter::make('is_active')
                     ->label('Active Status'),

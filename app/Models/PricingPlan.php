@@ -13,6 +13,7 @@ class PricingPlan extends Model
 
     protected $fillable = [
         'title',
+        'category',
         'subtitle',
         'price',
         'billing_period',
