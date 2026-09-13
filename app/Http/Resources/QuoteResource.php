@@ -13,6 +13,7 @@ class QuoteResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'phone' => $this->phone,
             'company' => $this->company,
             'organization_size' => $this->organization_size,
             'goals_challenges' => $this->goals_challenges,

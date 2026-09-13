@@ -59,6 +59,9 @@ class QuoteResource extends Resource
                     Forms\Components\TextInput::make('email')
                         ->email()
                         ->disabled(),
+                    Forms\Components\TextInput::make('phone')
+                        ->label('WhatsApp / Phone')
+                        ->disabled(),
                     Forms\Components\TextInput::make('company')
                         ->disabled(),
                     Forms\Components\TextInput::make('organization_size')
@@ -85,6 +88,9 @@ class QuoteResource extends Resource
                 Columns\TextColumn::make('email')
                     ->searchable()
                     ->sortable(),
+                Columns\TextColumn::make('phone')
+                    ->label('WhatsApp')
+                    ->searchable(),
                 Columns\TextColumn::make('company')
                     ->searchable()
                     ->sortable(),

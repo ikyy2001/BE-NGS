@@ -25,6 +25,8 @@ class LatestInquiriesWidget extends BaseWidget
                     ->searchable(),
                 Columns\TextColumn::make('email')
                     ->searchable(),
+                Columns\TextColumn::make('phone')
+                    ->label('WhatsApp'),
                 Columns\TextColumn::make('subject')
                     ->limit(30),
                 Columns\TextColumn::make('created_at')
@@ -35,6 +37,7 @@ class LatestInquiriesWidget extends BaseWidget
                     ->form([
                         Forms\Components\TextInput::make('name')->disabled(),
                         Forms\Components\TextInput::make('email')->disabled(),
+                        Forms\Components\TextInput::make('phone')->label('WhatsApp')->disabled(),
                         Forms\Components\TextInput::make('subject')->disabled(),
                         Forms\Components\Textarea::make('message')->disabled()->rows(5),
                     ]),

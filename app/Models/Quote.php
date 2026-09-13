@@ -12,6 +12,7 @@ class Quote extends Model
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'company',
         'organization_size',
         'goals_challenges',

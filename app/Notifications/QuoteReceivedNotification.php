@@ -48,6 +48,7 @@ class QuoteReceivedNotification extends Notification implements ShouldQueue
             ->line('A new project quote request was submitted on the website.')
             ->line('Name: ' . $this->quote->name)
             ->line('Email: ' . $this->quote->email)
+            ->line('WhatsApp / Phone: ' . $this->quote->phone)
             ->line('Company: ' . $this->quote->company)
             ->line('Organization Size: ' . ucfirst($this->quote->organization_size))
             ->line('Goals & Challenges:')
@@ -65,13 +66,14 @@ class QuoteReceivedNotification extends Notification implements ShouldQueue
         $botToken = env('TELEGRAM_BOT_TOKEN');
         $chatId = env('TELEGRAM_CHAT_ID');
 
-        if (! $botToken || ! $chatId) {
+        if (!$botToken || !$chatId) {
             return;
         }
 
         try {
             $text = "💰 *New Quote Request*\n\n"
                 . "*From:* {$this->quote->name} ({$this->quote->email})\n"
+                . "*WhatsApp:* {$this->quote->phone}\n"
                 . "*Company:* {$this->quote->company} ({$this->quote->organization_size})\n\n"
                 . "*Goals & Challenges:*\n{$this->quote->goals_challenges}";
 

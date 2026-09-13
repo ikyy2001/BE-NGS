@@ -58,6 +58,9 @@ class InquiryResource extends Resource
                     Forms\Components\TextInput::make('email')
                         ->email()
                         ->disabled(),
+                    Forms\Components\TextInput::make('phone')
+                        ->label('WhatsApp / Phone')
+                        ->disabled(),
                     Forms\Components\TextInput::make('subject')
                         ->disabled()
                         ->columnSpanFull(),
@@ -82,6 +85,9 @@ class InquiryResource extends Resource
                 Columns\TextColumn::make('email')
                     ->searchable()
                     ->sortable(),
+                Columns\TextColumn::make('phone')
+                    ->label('WhatsApp')
+                    ->searchable(),
                 Columns\TextColumn::make('subject')
                     ->searchable()
                     ->limit(40),

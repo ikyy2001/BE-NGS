@@ -24,6 +24,7 @@ class StoreQuoteRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
+            'phone' => ['required', 'string', 'max:30'],
             'company' => ['required', 'string', 'max:255'],
             'organization_size' => ['required', 'string', 'in:small,medium,large'],
             'goals_challenges' => ['required', 'string', 'max:5000'],

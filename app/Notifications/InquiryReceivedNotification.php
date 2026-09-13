@@ -48,6 +48,7 @@ class InquiryReceivedNotification extends Notification implements ShouldQueue
             ->line('You have received a new contact inquiry from the public website.')
             ->line('Name: ' . $this->inquiry->name)
             ->line('Email: ' . $this->inquiry->email)
+            ->line('WhatsApp / Phone: ' . $this->inquiry->phone)
             ->line('Subject: ' . $this->inquiry->subject)
             ->line('Message:')
             ->line($this->inquiry->message)
@@ -64,13 +65,14 @@ class InquiryReceivedNotification extends Notification implements ShouldQueue
         $botToken = env('TELEGRAM_BOT_TOKEN');
         $chatId = env('TELEGRAM_CHAT_ID');
 
-        if (! $botToken || ! $chatId) {
+        if (!$botToken || !$chatId) {
             return;
         }
 
         try {
             $text = "📩 *New Studio Inquiry*\n\n"
                 . "*From:* {$this->inquiry->name} ({$this->inquiry->email})\n"
+                . "*WhatsApp:* {$this->inquiry->phone}\n"
                 . "*Subject:* {$this->inquiry->subject}\n\n"
                 . "*Message:*\n{$this->inquiry->message}";
 

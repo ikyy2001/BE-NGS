@@ -23,6 +23,8 @@ class LatestQuotesWidget extends BaseWidget
             ->columns([
                 Columns\TextColumn::make('name')
                     ->searchable(),
+                Columns\TextColumn::make('phone')
+                    ->label('WhatsApp'),
                 Columns\TextColumn::make('company')
                     ->searchable(),
                 Columns\TextColumn::make('organization_size')
@@ -35,6 +37,7 @@ class LatestQuotesWidget extends BaseWidget
                     ->form([
                         Forms\Components\TextInput::make('name')->disabled(),
                         Forms\Components\TextInput::make('email')->disabled(),
+                        Forms\Components\TextInput::make('phone')->label('WhatsApp')->disabled(),
                         Forms\Components\TextInput::make('company')->disabled(),
                         Forms\Components\TextInput::make('organization_size')->disabled(),
                         Forms\Components\Textarea::make('goals_challenges')->disabled()->rows(5),
