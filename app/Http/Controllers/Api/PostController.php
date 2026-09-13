@@ -30,7 +30,16 @@ class PostController extends Controller
         if ($search = $request->input('search', $request->input('q'))) {
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('body', 'like', "%{$search}%");
+                  ->orWhere('body', 'like', "%{$search}%")
+                  ->orWhere('primary_keyword', 'like', "%{$search}%")
+                  ->orWhere('secondary_keywords', 'like', "%{$search}%");
+            });
+        }
+
+        if ($keyword = $request->input('keyword')) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('primary_keyword', 'like', "%{$keyword}%")
+                  ->orWhere('secondary_keywords', 'like', "%{$keyword}%");
             });
         }
 

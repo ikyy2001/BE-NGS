@@ -14,6 +14,17 @@ class ProjectSeeder extends Seeder
     {
         $projects = [
             [
+                'title' => 'SMK Plus Pelita Nusantara Game Roblox - Virtual Campus Tour',
+                'slug' => 'smk-plus-pelita-nusantara',
+                'description' => 'Game metaverse Roblox interaktif untuk SMK Plus Pelita Nusantara Bogor dengan visual 3D kampus 1:1, lab RPL, dan fitur interaktif.',
+                'detail_description' => 'SMK Plus Pelita Nusantara Game Roblox adalah platform eksplorasi virtual interaktif sekolah SMK Plus Pelita Nusantara (PNB) Bogor karya Nusa Garuda Studio. Menampilkan rekonstruksi 3D akurat 1:1 gedung sekolah, laboratorium Rekayasa Perangkat Lunak (RPL), ruang kelas digital, lapangan upacara, dan sistem quest interaktif untuk pengalaman PPDB dan kegiatan sekolah virtual.',
+                'category' => 'Roblox Development',
+                'client' => 'SMK Plus Pelita Nusantara Bogor',
+                'technology' => 'Roblox Studio, Luau Scripting, Blender 3D, UI Design',
+                'image_url' => '/images/smkpnb.webp',
+                'is_featured' => true,
+            ],
+            [
                 'title' => 'Garuda World RP - Immersive Roblox Experience',
                 'slug' => 'garuda-world-rp',
                 'description' => 'A custom roleplay open-world Roblox game with tailored vehicle mechanics, inventory systems, and economy.',

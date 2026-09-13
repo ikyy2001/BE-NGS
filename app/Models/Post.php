@@ -15,8 +15,15 @@ class Post extends Model
         'category_id',
         'title',
         'slug',
+        'primary_keyword',
+        'secondary_keywords',
+        'meta_title',
+        'meta_description',
+        'canonical_url',
+        'schema_type',
         'body',
         'image',
+        'og_image',
         'is_published',
         'published_at',
     ];
@@ -37,7 +44,22 @@ class Post extends Model
 
     protected $appends = [
         'image_url',
+        'og_image_url',
+        'secondary_keywords_list',
     ];
+
+    public function getSecondaryKeywordsListAttribute(): array
+    {
+        if (empty($this->secondary_keywords)) {
+            return [];
+        }
+
+        if (is_array($this->secondary_keywords)) {
+            return $this->secondary_keywords;
+        }
+
+        return array_values(array_filter(array_map('trim', explode(',', (string) $this->secondary_keywords))));
+    }
 
     public function category(): BelongsTo
     {
@@ -55,5 +77,18 @@ class Post extends Model
         }
 
         return Storage::disk('public')->url($this->image);
+    }
+
+    public function getOgImageUrlAttribute(): ?string
+    {
+        if (! $this->og_image) {
+            return $this->image_url;
+        }
+
+        if (str_starts_with($this->og_image, 'http://') || str_starts_with($this->og_image, 'https://')) {
+            return $this->og_image;
+        }
+
+        return Storage::disk('public')->url($this->og_image);
     }
 }
