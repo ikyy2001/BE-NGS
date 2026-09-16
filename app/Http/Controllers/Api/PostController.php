@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
+use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    use ApiResponse;
+
     /**
      * Display a listing of published blog posts.
      */
@@ -22,9 +26,12 @@ class PostController extends Controller
             ->orderBy('created_at', 'desc');
 
         if ($categorySlug = $request->input('category')) {
-            $query->whereHas('category', function ($q) use ($categorySlug) {
-                $q->where('slug', $categorySlug);
-            });
+            if ($categorySlug !== 'all') {
+                $query->whereHas('category', function ($q) use ($categorySlug) {
+                    $q->where('slug', $categorySlug)
+                      ->orWhere('name', $categorySlug);
+                });
+            }
         }
 
         if ($search = $request->input('search', $request->input('q'))) {
@@ -53,27 +60,33 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified blog post by slug.
+     * Display the specified blog post by slug or ID.
      */
     public function show(string $slug): JsonResponse
     {
+        $cleanedSlug = trim($slug);
+
         $post = Post::with('category')
-            ->where('slug', $slug)
+            ->where(function ($q) use ($cleanedSlug) {
+                $q->where('slug', $cleanedSlug)
+                  ->orWhere('slug', urldecode($cleanedSlug))
+                  ->orWhere('slug', strtolower($cleanedSlug));
+                
+                if (is_numeric($cleanedSlug)) {
+                    $q->orWhere('id', (int) $cleanedSlug);
+                }
+            })
             ->where('is_published', true)
             ->first();
 
         if (! $post) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Post not found',
-                'data' => null,
-            ], 404);
+            return $this->errorResponse('Post not found', null, 404);
         }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Post detail retrieved successfully',
-            'data' => $post,
-        ]);
+        return $this->successResponse(
+            new PostResource($post),
+            'Post detail retrieved successfully'
+        );
     }
 }
+

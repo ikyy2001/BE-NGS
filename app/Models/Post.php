@@ -43,10 +43,16 @@ class Post extends Model
     }
 
     protected $appends = [
+        'content',
         'image_url',
         'og_image_url',
         'secondary_keywords_list',
     ];
+
+    public function getContentAttribute(): ?string
+    {
+        return $this->body;
+    }
 
     public function getSecondaryKeywordsListAttribute(): array
     {

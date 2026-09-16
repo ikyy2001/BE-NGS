@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             BrandSeeder::class,
             CategorySeeder::class,
             PostSeeder::class,
+            MediaCoverageSeeder::class,
             AccordionShowcaseSeeder::class,
             PopupBannerSeeder::class,
             CompanySettingSeeder::class,

@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\InquiryController;
 use App\Http\Controllers\Api\JobVacancyController;
+use App\Http\Controllers\Api\MediaCoverageController;
 use App\Http\Controllers\Api\PopupBannerController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\PricingPlanController;
@@ -40,6 +41,8 @@ Route::get('/brands', [BrandController::class, 'index']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/posts', [PostController::class, 'index']);
 Route::get('/posts/{slug}', [PostController::class, 'show']);
+Route::get('/media', [MediaCoverageController::class, 'index']);
+Route::get('/media/{slug}', [MediaCoverageController::class, 'show']);
 
 Route::post('/inquiries', [InquiryController::class, 'store'])->middleware('throttle:10,1');
 Route::post('/quotes', [QuoteController::class, 'store'])->middleware('throttle:10,1');
