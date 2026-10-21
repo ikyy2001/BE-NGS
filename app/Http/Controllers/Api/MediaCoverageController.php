@@ -18,10 +18,14 @@ class MediaCoverageController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $perPage = min((int) $request->input('per_page', $request->input('limit', 12)), 50);
+        $perPage = max(1, min((int) $request->input('per_page', $request->input('limit', 12)), 50));
 
         $query = MediaCoverage::query()
             ->where('is_published', true)
+            ->where(function ($q) {
+                $q->whereNull('published_at')
+                    ->orWhere('published_at', '<=', now());
+            })
             ->orderBy('sort_order')
             ->orderByDesc('published_at')
             ->orderByDesc('created_at');
@@ -66,6 +70,10 @@ class MediaCoverageController extends Controller
                 }
             })
             ->where('is_published', true)
+            ->where(function ($q) {
+                $q->whereNull('published_at')
+                    ->orWhere('published_at', '<=', now());
+            })
             ->first();
 
         if (! $coverage) {

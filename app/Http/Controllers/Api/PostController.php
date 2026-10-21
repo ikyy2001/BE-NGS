@@ -18,10 +18,14 @@ class PostController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
-        $perPage = min((int) $request->input('per_page', $request->input('limit', 15)), 50);
+        $perPage = max(1, min((int) $request->input('per_page', $request->input('limit', 15)), 50));
 
         $query = Post::with('category')
             ->where('is_published', true)
+            ->where(function ($q) {
+                $q->whereNull('published_at')
+                    ->orWhere('published_at', '<=', now());
+            })
             ->orderBy('published_at', 'desc')
             ->orderBy('created_at', 'desc');
 
@@ -77,6 +81,10 @@ class PostController extends Controller
                 }
             })
             ->where('is_published', true)
+            ->where(function ($q) {
+                $q->whereNull('published_at')
+                    ->orWhere('published_at', '<=', now());
+            })
             ->first();
 
         if (! $post) {

@@ -21,7 +21,11 @@ class JobVacancyController extends Controller
     public function index(Request $request): JsonResponse
     {
         $query = JobVacancy::query()
-            ->where('is_active', true);
+            ->where('is_active', true)
+            ->where(function ($q) {
+                $q->whereNull('deadline')
+                    ->orWhereDate('deadline', '>=', now()->toDateString());
+            });
 
         if ($request->filled('department')) {
             $query->where('department', $request->query('department'));
@@ -47,10 +51,14 @@ class JobVacancyController extends Controller
         $job = JobVacancy::query()
             ->where('slug', $slug)
             ->where('is_active', true)
+            ->where(function ($q) {
+                $q->whereNull('deadline')
+                    ->orWhereDate('deadline', '>=', now()->toDateString());
+            })
             ->first();
 
         if (! $job) {
-            return $this->errorResponse('Lowongan pekerjaan tidak ditemukan.', 404);
+            return $this->errorResponse('Lowongan pekerjaan tidak ditemukan.', null, 404);
         }
 
         return $this->successResponse(new JobVacancyResource($job));
@@ -72,16 +80,32 @@ class JobVacancyController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return $this->errorResponse($validator->errors()->first(), 422, $validator->errors());
+            return $this->errorResponse($validator->errors()->first(), $validator->errors(), 422);
+        }
+
+        $jobId = $request->input('job_vacancy_id');
+        if ($jobId) {
+            $vacancy = JobVacancy::where('id', $jobId)
+                ->where('is_active', true)
+                ->where(function ($q) {
+                    $q->whereNull('deadline')
+                        ->orWhereDate('deadline', '>=', now()->toDateString());
+                })
+                ->first();
+
+            if (! $vacancy) {
+                return $this->errorResponse('Lowongan pekerjaan sudah ditutup atau tidak aktif.', null, 422);
+            }
         }
 
         $resumePath = null;
         if ($request->hasFile('resume')) {
-            $resumePath = $request->file('resume')->store('resumes', 'public');
+            // Store resume in private 'local' disk instead of public
+            $resumePath = $request->file('resume')->store('resumes', 'local');
         }
 
         $application = JobApplication::create([
-            'job_vacancy_id' => $request->input('job_vacancy_id'),
+            'job_vacancy_id' => $jobId,
             'full_name' => $request->input('full_name'),
             'email' => $request->input('email'),
             'phone' => $request->input('phone'),

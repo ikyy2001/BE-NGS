@@ -107,8 +107,10 @@ Aplikasi backend akan berjalan di **`http://127.0.0.1:8000`**.
 Dashboard Admin Filament dapat diakses melalui URL:
 
 - **URL Admin Panel**: [http://localhost:8000/admin](http://localhost:8000/admin)
-- **Email**: `admin@nusagaruda.com`
-- **Password**: `password`
+- **Akun Admin**: Atur melalui `ADMIN_EMAIL` dan `ADMIN_PASSWORD` di file `.env`, atau buat user admin baru melalui terminal:
+  ```bash
+  php artisan make:filament-user
+  ```
 
 ---
 

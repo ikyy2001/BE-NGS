@@ -31,7 +31,7 @@ class QuoteController extends Controller
 
         $quote = Quote::create($data);
 
-        $adminEmail = config('mail.from.address', env('ADMIN_EMAIL', 'admin@nusagaruda.com'));
+        $adminEmail = config('services.admin_email', config('mail.from.address', 'admin@nusagaruda.com'));
         try {
             Notification::route('mail', $adminEmail)
                 ->notify(new QuoteReceivedNotification($quote));

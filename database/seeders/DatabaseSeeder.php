@@ -13,13 +13,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::updateOrCreate(
-            ['email' => 'admin@nusagaruda.com'],
-            [
-                'name' => 'Nusa Garuda Admin',
-                'password' => Hash::make('password'),
-            ]
-        );
+        $adminEmail = env('ADMIN_EMAIL', 'admin@nusagaruda.com');
+        $adminPassword = env('ADMIN_PASSWORD');
+
+        if (! User::where('email', $adminEmail)->exists()) {
+            User::create([
+                'name' => env('ADMIN_NAME', 'Nusa Garuda Admin'),
+                'email' => $adminEmail,
+                'password' => Hash::make($adminPassword ?: \Illuminate\Support\Str::random(16)),
+            ]);
+        }
 
         $this->call([
             ProjectSeeder::class,

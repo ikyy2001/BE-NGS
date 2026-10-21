@@ -68,6 +68,10 @@ class JobApplicationResource extends Resource
                             ->rows(4)
                             ->columnSpanFull()
                             ->disabled(),
+                        Forms\Components\Placeholder::make('resume_path_info')
+                            ->label('Berkas CV / Resume Pelamar')
+                            ->content(fn ($record) => $record && $record->resume_path ? '✅ Terlampir (Disimpan aman di private storage: ' . basename($record->resume_path) . ')' : '❌ Tidak melampirkan berkas')
+                            ->columnSpanFull(),
                     ])->columns(2),
 
                 Components\Section::make('Status & Evaluasi HR')
@@ -143,6 +147,24 @@ class JobApplicationResource extends Resource
                     ]),
             ])
             ->actions([
+                Actions\Action::make('download_resume')
+                    ->label('Unduh CV')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('info')
+                    ->visible(fn ($record) => ! empty($record->resume_path))
+                    ->action(function ($record) {
+                        $disk = \Illuminate\Support\Facades\Storage::disk('local')->exists($record->resume_path) ? 'local' : 'public';
+                        if (! \Illuminate\Support\Facades\Storage::disk($disk)->exists($record->resume_path)) {
+                            \Filament\Notifications\Notification::make()
+                                ->title('File resume tidak ditemukan.')
+                                ->danger()
+                                ->send();
+                            return null;
+                        }
+                        $ext = pathinfo($record->resume_path, PATHINFO_EXTENSION) ?: 'pdf';
+                        $filename = \Illuminate\Support\Str::slug($record->full_name) . '-resume.' . $ext;
+                        return response()->download(\Illuminate\Support\Facades\Storage::disk($disk)->path($record->resume_path), $filename);
+                    }),
                 Actions\EditAction::make()->label('Evaluasi'),
                 Actions\DeleteAction::make(),
             ])

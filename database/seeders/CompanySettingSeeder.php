@@ -24,7 +24,7 @@ class CompanySettingSeeder extends Seeder
                 'latitude' => '-6.402484',
                 'longitude' => '106.794243',
                 'google_maps_url' => 'https://www.google.com/maps/search/?api=1&query=Nusa+Garuda+Studio',
-                'google_maps_embed_url' => 'https://www.google.com/maps/embed/v1/place?q=Nusa%20Garuda%20Studio&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8',
+                'google_maps_embed_url' => 'https://maps.google.com/maps?q=Nusa%20Garuda%20Studio&t=&z=15&ie=UTF8&iwloc=&output=embed',
                 'discord_url' => 'https://discord.gg/nusagaruda',
                 'roblox_group_url' => 'https://www.roblox.com/groups/nusagaruda',
                 'instagram_url' => 'https://instagram.com/nusagarudastudio',
