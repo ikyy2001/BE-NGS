@@ -27,6 +27,7 @@ class StoreInquiryRequest extends FormRequest
             'phone' => ['required', 'string', 'max:30'],
             'subject' => ['required', 'string', 'max:255'],
             'message' => ['required', 'string', 'max:5000'],
+            '_hp' => ['prohibited'],
         ];
     }
 }

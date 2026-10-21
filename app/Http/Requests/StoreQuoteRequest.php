@@ -28,6 +28,7 @@ class StoreQuoteRequest extends FormRequest
             'company' => ['required', 'string', 'max:255'],
             'organization_size' => ['required', 'string', 'in:small,medium,large'],
             'goals_challenges' => ['required', 'string', 'max:5000'],
+            '_hp' => ['prohibited'],
         ];
     }
 }

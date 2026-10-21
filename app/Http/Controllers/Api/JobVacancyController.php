@@ -77,6 +77,7 @@ class JobVacancyController extends Controller
             'portfolio_url' => 'nullable|url|max:500',
             'resume' => 'nullable|file|mimes:pdf,doc,docx|max:10240', // Max 10MB
             'cover_letter' => 'nullable|string|max:3000',
+            '_hp' => 'prohibited',
         ]);
 
         if ($validator->fails()) {
